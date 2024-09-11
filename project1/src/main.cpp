@@ -17,18 +17,27 @@ image::image(int width, int height) {
     this->width = width;
     this->height = height;
     this->data = new unsigned char[width * height];
-    memset(data, 1, width * height);
+    memset(data, 0, width * height);
 }
 
 image::~image() { delete[] data; }
 
 void image::draw_circle(int x, int y, int r) {
     for(int i = x - r; i <= x + r; i++) {
+        int state = 0;
         for(int j = y - r; j <= y + r; j++) {
             int w = i - x;
             int h = j - y;
-            if((w*w + 4 * (h*h)) <= r*r) {
-                data[i + j*width] = 0;
+            if(state == 0){
+                if((w*w + 4 * (h*h)) <= r*r) {
+                    state = 1;
+                    data[i + j*width] = 1;
+                }
+            } else if(state == 1){
+                if((w*w + 4 * (h*h)) >= r*r) {
+                    state = 2;
+                    data[i + j*width] = 1;
+                }
             }
         }
     }
