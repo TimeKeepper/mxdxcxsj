@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cstring>
+#include <cmath>
 
 class image {
 public:
@@ -23,21 +25,23 @@ image::image(int width, int height) {
 image::~image() { delete[] data; }
 
 void image::draw_circle(int x, int y, int r) {
-    for(int i = x - r; i <= x + r; i++) {
-        int state = 0;
-        for(int j = y - r; j <= y + r; j++) {
-            int w = i - x;
-            int h = j - y;
-            if(state == 0){
-                if((w*w + 4 * (h*h)) <= r*r) {
-                    state = 1;
-                    data[i + j*width] = 1;
-                }
-            } else if(state == 1){
-                if((w*w + 4 * (h*h)) >= r*r) {
-                    state = 2;
-                    data[i + j*width] = 1;
-                }
+    for(int i = x - r; i <= x + r; i++){
+        if(i < 0) {
+            continue;
+        } else if(i >= width){
+            break;
+        }
+        for(int j = y - r; j <= y + r; j++){
+            if(j < 0) {
+                continue;
+            }else if(j >= height){
+                break;
+            }
+            int dx = i - x;
+            int dy = j - y;
+            int d = (dx * dx) + 4 * (dy * dy);
+            if(int(sqrt(d)) == r) {
+                data[i + width * j] = 1;
             }
         }
     }
@@ -56,14 +60,14 @@ void image::show(void){
     }
 }
 
-image img(100, 24);
+image img(100, 30);
 
 #define ANSI_GREEN "\x1b[32m"
 #define ANSI_RESET "\x1b[0m"
 
 int main(int argc, char **argv) {
-    img.draw_circle(25, 12, 20);
-    img.draw_circle(75, 12, 20);
+    img.draw_circle(25, 15, 20);
+    img.draw_circle(75, 15, 20);
     img.show();
     std::cout << ANSI_GREEN << "Program end" << ANSI_RESET << std::endl;
     return 0;
