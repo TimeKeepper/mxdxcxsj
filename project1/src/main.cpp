@@ -39,7 +39,7 @@ void image::draw_circle(int x, int y, int r) {
             }
             int dx = i - x;
             int dy = j - y;
-            int d = (dx * dx) + 4 * (dy * dy);
+            int d = (dx * dx) + 5 * (dy * dy);
             if(int(sqrt(d)) == r) {
                 data[i + width * j] = 1;
             }
@@ -65,10 +65,37 @@ image img(100, 30);
 #define ANSI_GREEN "\x1b[32m"
 #define ANSI_RESET "\x1b[0m"
 
-int main(int argc, char **argv) {
+void experiment() {
     img.draw_circle(25, 15, 20);
     img.draw_circle(75, 15, 20);
     img.show();
     std::cout << ANSI_GREEN << "Program end" << ANSI_RESET << std::endl;
+    return ;
+}
+
+void homework_1p6(){
+    int a, b;
+    float x, y;
+    char ch1, ch2, ch3;
+
+    std::cin >> a >> b >> x >> y >> ch1;
+    ch2 = std::cin.get();
+    std::cin >> ch3;
+
+    std::cout << a << " " << b << " " << x << " " << y << " " << ch1 << " " << ch2 << " " << ch3 << std::endl;
+
+    return;
+}
+
+void homework_1p7a8(void){
+    int a, b, c, d;
+
+    std::cin >> std::oct >> a >> b >> std::hex >> c >> std::dec >> d;
+    std::cout << a << '\t' << std::hex << b << '\t' << std::oct << c << std::endl;
+}
+
+int main(int argc, char **argv) {
+    // experiment();
+    homework_1p7a8();
     return 0;
 }
