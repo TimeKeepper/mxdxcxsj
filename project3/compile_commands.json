@@ -1,0 +1,11 @@
+[
+{
+  "directory": "/home/wenjiu/project/mxdxcxsj/project3",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-Iinclude", "-DNDEBUG", "-o", "build/.objs/project3/linux/x86_64/release/src/FunCal.cpp.o", "src/FunCal.cpp"],
+  "file": "src/FunCal.cpp"
+},
+{
+  "directory": "/home/wenjiu/project/mxdxcxsj/project3",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-Iinclude", "-DNDEBUG", "-o", "build/.objs/project3/linux/x86_64/release/src/main.cpp.o", "src/main.cpp"],
+  "file": "src/main.cpp"
+}]
