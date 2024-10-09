@@ -21,13 +21,24 @@ void func() {
   c -= 100;
 }
 
-int main(int argc, char **argv) {
+void fun_test(void) {
   funa(a);
   funb(b);
   funa(b);
   func();
   std::cout << a << ' ' << b << ' ' << c << '\n';
+}
 
+void FunCal_test(void) {
+  int64_t a = 10, b = 20, c = 30;
+  double ad = 10.0, bd = 20.0;
+  std::cout << "Cal(a) = " << FunCal::Cal(a) << "\n";
+  std::cout << "Cal(a, b) = " << FunCal::Cal(a, b) << "\n";
+  std::cout << "Cal(ad, bd) = " << FunCal::Cal(ad, bd) << "\n";
+  std::cout << "Cal(a, b, c) = " << FunCal::Cal(a, b, c) << "\n";
+}
+
+void arr_test(void) {
   my_Array::Array arr1(5);
   my_Array::Array arr2(5);
 
@@ -39,6 +50,11 @@ int main(int argc, char **argv) {
   std::cout << "arr1 = " << arr1 << "\n";
   std::cout << "arr2 = " << arr2 << "\n";
   std::cout << "arr1 + arr2 = " << arr1 + arr2 << "\n";
+}
 
+int main(int argc, char **argv) {
+  // FunCal_test();
+  // fun_test();
+  arr_test();
   return 0;
 }
