@@ -1,22 +1,12 @@
 #include <Character.hpp>
 
+#include <utils.h>
+
 #include <cstdint>
 #include <iostream>
 #include <random>
 
 namespace character {
-
-void observer::onEvent(EventType type, void *sender) {
-  switch (type) {
-  case EventType::DEAD:
-    std::cout << ((Character *)sender)->Name << " is dead." << std::endl;
-    this->is_end = true;
-    break;
-  default:
-    std::cout << "Unknown event type." << std::endl;
-    break;
-  }
-}
 
 Character::Character(std::string name, uint64_t health, uint64_t damege)
     : Health(health), MaxHealth(health), Damege(damege) {
@@ -99,15 +89,53 @@ void Character::Healed(uint64_t health) {
   this->Health += health;
 }
 
-void Character::addObserver(observer *observer) {
-  std::cout << "Character " << this->Name << " add observer" << std::endl;
-  this->Observers.push_back(observer);
+void Character::add_Event_Handler(
+    std::function<void(EventType, void *)> handler) {
+  this->Event_Handler = handler;
 }
 
 void Character::notifyObervers(EventType type) {
-  for (auto observer : this->Observers) {
-    observer->onEvent(type, this);
+  this->Event_Handler(type, this);
+}
+
+void observer::addObserverd(Character *character) {
+  std::cout << "Observer add observerd" << character->Name << std::endl;
+  this->Observerd.push_back(character);
+  character->add_Event_Handler(std::bind(
+      &observer::onEvent, this, std::placeholders::_1, std::placeholders::_2));
+}
+
+void observer::onEvent(EventType type, void *sender) {
+  switch (type) {
+  case EventType::DEAD:
+    std::cout << ((Character *)sender)->Name << " is dead." << std::endl;
+    this->loser = ((Character *)sender)->Name;
+    this->is_end = true;
+    break;
+  default:
+    std::cout << "Unknown event type." << std::endl;
+    break;
   }
+}
+
+void observer::turn_one() {
+  if (this->is_end)
+    return;
+  this->Observerd[0]->move(this->Observerd[1]);
+  if (this->is_end)
+    return;
+  this->Observerd[1]->move(this->Observerd[0]);
+}
+
+void observer::fight() {
+  this->is_end = false;
+
+  while (!this->is_end) {
+    this->turn_one();
+  }
+
+  std::cout << GREEN << "Game over." << this->loser << " losed." << RESET
+            << std::endl;
 }
 
 } // namespace character
