@@ -2,6 +2,7 @@
 #define __CHARACTER_HPP__
 
 #include <cstdint>
+#include <functional>
 #include <random>
 #include <string>
 #include <vector>
@@ -20,7 +21,9 @@ class Character {
 private:
   std::mt19937 RandomGenerater;
   std::vector<observer *> Observers;
+  std::function<void(Character *)> Skill;
   uint64_t Health;
+  uint64_t MaxHealth;
   uint64_t Damege;
 
 public:
@@ -30,9 +33,10 @@ public:
 
   void move(Character *);
 
+  void Skill_change();
   void Skill_Attack(Character *);
   void Skill_Defense(Character *);
-  void Skill_Heal();
+  void Skill_Heal(Character *);
 
   void Attacked(uint64_t damage);
   void Healed(uint64_t heal);

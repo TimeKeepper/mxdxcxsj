@@ -19,7 +19,7 @@ void observer::onEvent(EventType type, void *sender) {
 }
 
 Character::Character(std::string name, uint64_t health, uint64_t damege)
-    : Health(health), Damege(damege) {
+    : Health(health), MaxHealth(health), Damege(damege) {
   std::random_device rd;
   this->RandomGenerater = std::mt19937(rd());
 
@@ -38,17 +38,25 @@ Character::~Character() {
 }
 
 void Character::move(Character *target) {
+  this->Skill_change();
+  this->Skill(target);
+}
+
+void Character::Skill_change() {
   std::uniform_int_distribution<int> dist(1, 3);
-  int random_move = dist(this->RandomGenerater);
-  switch (random_move) {
+  int random_skill = dist(this->RandomGenerater);
+  switch (random_skill) {
   case 1:
-    this->Skill_Attack(target);
+    this->Skill =
+        std::bind(&Character::Skill_Attack, this, std::placeholders::_1);
     break;
   case 2:
-    this->Skill_Defense(target);
+    this->Skill =
+        std::bind(&Character::Skill_Defense, this, std::placeholders::_1);
     break;
   case 3:
-    this->Skill_Heal();
+    this->Skill =
+        std::bind(&Character::Skill_Heal, this, std::placeholders::_1);
     break;
   default:
     break;
@@ -68,7 +76,7 @@ void Character::Skill_Defense(Character *target) {
   target->Attacked(2);
 }
 
-void Character::Skill_Heal() {
+void Character::Skill_Heal(Character *target) {
   std::cout << this->Name << " heals itself" << std::endl;
 
   this->Healed(6);
@@ -83,7 +91,13 @@ void Character::Attacked(uint64_t damege) {
   this->Health -= damege;
 }
 
-void Character::Healed(uint64_t health) { this->Health += health; }
+void Character::Healed(uint64_t health) {
+  if (this->Health + health > this->MaxHealth) {
+    this->Health = this->MaxHealth;
+    return;
+  }
+  this->Health += health;
+}
 
 void Character::addObserver(observer *observer) {
   std::cout << "Character " << this->Name << " add observer" << std::endl;
