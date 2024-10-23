@@ -1,0 +1,11 @@
+[
+{
+  "directory": "/home/wenjiu/project/mxdxcxsj/project4",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-Iinclude", "-I../utils", "-DNDEBUG", "-o", "build/.objs/project4/linux/x86_64/release/src/Character.cpp.o", "src/Character.cpp"],
+  "file": "src/Character.cpp"
+},
+{
+  "directory": "/home/wenjiu/project/mxdxcxsj/project4",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-Iinclude", "-I../utils", "-DNDEBUG", "-o", "build/.objs/project4/linux/x86_64/release/src/main.cpp.o", "src/main.cpp"],
+  "file": "src/main.cpp"
+}]
