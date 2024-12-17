@@ -1,0 +1,6 @@
+[
+{
+  "directory": "/home/wenjiu/project/mxdxcxsj/project7",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-Iinclude", "-I../utils", "-DNDEBUG", "-o", "build/.objs/project7/linux/x86_64/release/src/main.cpp.o", "src/main.cpp"],
+  "file": "src/main.cpp"
+}]
